@@ -1,8 +1,20 @@
 # Mini Games
 
-A minimal homepage linking to Wordle, NYT Crossword, Connections, Wizard, Euchre, Wallz, Family Feud, and Krillion. Games appear in a single vertical list on desktop and mobile.
+A minimal homepage with eight external games and the built-in Rank game. Games appear in a single vertical list on desktop and mobile.
 
 Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
+
+## Rank
+
+[Play Rank](https://denzeljohnson.github.io/mini-games/games/rank/) in your browser. Blind Ranking lets you choose a category and 5 or 10 items, then place each surprise item into an empty rank. Rank 1 is your favorite; placements are final. Items never repeat within a round. The reveal rapidly cycles through category items before settling, with an immediate reveal for reduced-motion preferences.
+
+Eight hardcoded categories have 24 items each: foods, desserts, animals, movies, music artists, video games, sports, and travel destinations. Edit `games/rank/categories.mjs` to add pools. Rounds stay in memory and reset on reload. Bracket Ranking is not available yet.
+
+Run engine and publisher regression tests with Node 24 or later:
+
+```sh
+node --test tests/*.test.mjs
+```
 
 ## Preview locally
 
@@ -38,4 +50,4 @@ From the private working source, commit and review your changes, then publish th
 bash scripts/publish-pages.sh
 ```
 
-The script requires the GitHub CLI authenticated as the repository owner. It exports only `index.html`, `styles.css`, `favicon.svg`, `.nojekyll`, and this README. AI instructions, project memory, and audit history are excluded. It stops if the public repository already tracks files outside that allowlist, leaving them untouched. Check the Pages deployment and live site after each publication.
+The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports the five root site files plus Rank's `index.html`, `rank.css`, `app.mjs`, `categories.mjs`, and `engine.mjs`. AI instructions, tests, project memory, and audit history are excluded. It stops if the public repository already tracks files outside that allowlist, leaving them untouched. Check the Pages deployment and live site after each publication.
