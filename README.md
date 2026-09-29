@@ -1,8 +1,14 @@
 # Mini Games
 
-A minimal homepage with eight external games and the built-in Rank game. Games appear in a single vertical list on desktop and mobile.
+A minimal homepage with eight external games and the built-in Rank and Charades games. All ten games appear in a single vertical list on desktop and mobile.
 
 Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
+
+## Charades
+
+[Play Charades](https://denzeljohnson.github.io/mini-games/games/charades/). One actor looks at the screen and silently acts while friends guess. Choose a mixed bag or one of eight categories and a60-,90-, or120-second round. Reveal starts the clock; Correct earns a point, Skip moves on. Pause hides the prompt and saves the remaining time. Leaving the tab also pauses; resume when ready. Review correct/skipped prompts after timeout, deck exhaustion or End round, then replay or pass the device.
+
+All300 prompts are hardcoded in `games/charades/prompts.mjs`: Animals40, Everyday actions40, Objects40, Jobs40, Sports35, Movies & TV35, Characters35 and Tricky scenarios35. No repeats within a round. No sensors, accounts, network-generated prompts or saved scores. Reload resets the game. Keep prompt categories, engine/controller/UI tests and the exact publication boundary coordinated.
 
 ## Rank
 
@@ -54,4 +60,4 @@ From the private working source, commit and review your changes, then publish th
 bash scripts/publish-pages.sh
 ```
 
-The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports the five root site files plus Rank's `index.html`, `rank.css`, `app.mjs`, `categories.mjs`, `additional-categories.mjs`, `engine.mjs`, `bracket.mjs`, `portraits.mjs`, `anime-images.mjs`, `nba-images.mjs`, `food-images.mjs`, `music-images.mjs` `video-game-images.mjs` and `movie-images.mjs` (19 files total). AI instructions, tests, project memory, and audit history are excluded. It stops if the public repository already tracks files outside that allowlist, leaving them untouched. Check the Pages deployment and live site after each publication.
+The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports five root assets, fourteen Rank files, and six Charades files (`index.html`, `charades.css`, `app.mjs`, `controller.mjs`, `engine.mjs`, `prompts.mjs`) —25 files total. AI instructions, tests, project memory, and audit history are excluded. It stops if the public repository already tracks files outside that allowlist, leaving them untouched. Check the Pages deployment and live site after each publication.

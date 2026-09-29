@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Act it out. A timed, pass-and-play Charades game with 300 varied prompts.">
+  <title>Charades · Mini Games</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="stylesheet" href="../../styles.css?v=2">
+  <link rel="stylesheet" href="./charades.css?v=1">
+</head>
+<body>
+  <main class="page charades-page">
+    <a class="back-link" href="../../">← Mini Games</a>
+    <header class="page-header">
+      <p class="eyebrow">Big gestures. Zero words.</p>
+      <h1>Charades</h1>
+      <p class="intro">Act it out. Let your friends do the guessing.</p>
+    </header>
+
+    <section id="setup" class="panel" aria-labelledby="setup-title">
+      <h2 id="setup-title">Set the scene</h2>
+      <form id="setup-form">
+        <label for="category">Category</label>
+        <select id="category" name="category" required></select>
+        <label for="duration">Round length</label>
+        <select id="duration" name="duration">
+          <option value="60">60 seconds</option>
+          <option value="90">90 seconds</option>
+          <option value="120">120 seconds</option>
+        </select>
+        <button id="start" class="primary" disabled>Start round</button>
+        <p id="setup-error" class="error" role="alert"></p>
+      </form>
+      <div class="how-to">
+        <h3>One actor. Everyone else guesses.</h3>
+        <p>Only the actor looks at the screen. Use gestures, not words or sounds. Tap <strong>Correct</strong> for a right guess, or <strong>Skip</strong> to move on. Pass the device to the next actor after the round.</p>
+        <p class="hint">300 handpicked prompts. No repeats within a round. Leaving the tab pauses the timer.</p>
+      </div>
+    </section>
+
+    <section id="round" hidden aria-labelledby="round-title">
+      <div class="round-heading">
+        <div><p class="eyebrow" id="round-label"></p><h2 id="round-title">Your turn</h2></div>
+        <button id="new-game" class="text-button" type="button">New game</button>
+      </div>
+      <div class="stats">
+        <div><span class="hint">Time left</span><span class="stat-number" id="time-left" aria-live="off">1:00</span></div>
+        <div><span class="hint">Correct</span><span class="stat-number" id="score">0</span></div>
+        <div><span class="hint">Skipped</span><span class="stat-number" id="skips">0</span></div>
+      </div>
+      <progress id="time-progress" aria-label="Time remaining" max="60" value="60"></progress>
+      <section id="ready" class="panel prompt-card" aria-labelledby="ready-title">
+        <p class="eyebrow">For the actor’s eyes only</p>
+        <h3 id="ready-title">Ready to act?</h3>
+        <p>Face the screen toward you. Your timer starts when you reveal the first prompt.</p>
+        <button id="reveal" class="primary" type="button">Reveal &amp; start</button>
+      </section>
+      <section id="playing" class="panel prompt-card" aria-label="Current prompt" hidden>
+        <p class="eyebrow" id="prompt-category"></p>
+        <h3 id="prompt" class="prompt-text"></h3>
+        <p class="hint">No talking. Make your moves.</p>
+        <div class="answer-actions">
+          <button id="skip" class="secondary" type="button">Skip</button>
+          <button id="correct" class="primary" type="button">Correct</button>
+        </div>
+        <button id="pause" class="text-button" type="button">Pause round</button>
+      </section>
+      <section id="paused" class="panel prompt-card" aria-labelledby="paused-title" hidden>
+        <p class="eyebrow">Take a breath</p>
+        <h3 id="paused-title">Round paused</h3>
+        <p>Your prompt is hidden and your time is saved.</p>
+        <button id="resume" class="primary" type="button">Resume round</button>
+      </section>
+      <button id="end-round" class="text-button end-button" type="button">End round</button>
+    </section>
+
+    <section id="results" hidden aria-labelledby="result-title">
+      <div class="panel">
+        <p class="eyebrow">Take a bow</p>
+        <h2 id="result-title">Round complete</h2>
+        <p id="result-reason"></p>
+        <div class="stats result-stats">
+          <div><span class="hint">Correct</span><span class="stat-number" id="result-score">0</span></div>
+          <div><span class="hint">Skipped</span><span class="stat-number" id="result-skips">0</span></div>
+        </div>
+        <div class="result-actions">
+          <button id="play-again" class="primary" type="button">Play again</button>
+          <button id="change-settings" class="secondary" type="button">Change settings</button>
+        </div>
+      </div>
+      <details class="review"><summary>Review your prompts</summary><ol id="history"></ol></details>
+    </section>
+
+    <dialog id="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-description">
+      <h2 id="reset-title">Start a new game?</h2>
+      <p id="reset-description">Your round is paused. Starting over clears this score.</p>
+      <div class="result-actions">
+        <button id="keep-playing" class="secondary" type="button">Keep playing</button>
+        <button id="confirm-reset" class="primary" type="button">New game</button>
+      </div>
+    </dialog>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    <noscript><p class="panel">Enable JavaScript to play Charades. External games are still available on the homepage.</p></noscript>
+  </main>
+  <script type="module" src="./app.mjs?v=1"></script>
+</body>
+</html>
