@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Rank your favorites, one surprise at a time. Play Blind Ranking with 5 or 10 items.">
+  <meta name="description" content="Play Blind Ranking with 5 or 10 items, or pick a champion in a 16, 32, or 64-item bracket.">
   <title>Rank · Mini Games</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=2">
-  <link rel="stylesheet" href="./rank.css?v=1">
+  <link rel="stylesheet" href="./rank.css?v=2">
 </head>
 <body>
   <main class="page rank-page">
@@ -20,27 +20,33 @@
 
     <section id="setup" aria-labelledby="setup-title" class="panel">
       <h2 id="setup-title">Pick your way to play</h2>
-      <div class="mode-options" aria-label="Game modes">
-        <div class="mode-card selected">
-          <span class="mode-label">Blind Ranking</span>
-          <span>One item at a time. Every choice is final.</span>
-        </div>
-        <div class="mode-card unavailable">
-          <span class="mode-label">Bracket Ranking <span class="badge">Coming next</span></span>
-          <span>A second way to rank. Not available yet.</span>
-        </div>
-      </div>
       <form id="setup-form">
+        <fieldset id="mode-options">
+          <legend class="sr-only">Game mode</legend>
+          <div class="mode-options">
+            <label class="mode-card"><input type="radio" name="mode" value="blind" checked aria-label="Blind Ranking"><span><span class="mode-label">Blind Ranking</span>One surprise at a time. Every rank is final.</span></label>
+            <label class="mode-card"><input id="mode-bracket" type="radio" name="mode" value="bracket" aria-label="Bracket Ranking"><span><span class="mode-label">Bracket Ranking</span>Head-to-head choices. One champion.</span></label>
+          </div>
+        </fieldset>
         <label for="category">Category</label>
         <select id="category" name="category" required></select>
-        <fieldset>
+        <p class="hint category-note">Anime Characters and Movies are awaiting your lists.</p>
+        <fieldset id="blind-size">
           <legend>How many items?</legend>
           <div class="size-options">
             <label class="size-option"><input type="radio" name="size" value="5" checked><span>5 items</span></label>
             <label class="size-option"><input type="radio" name="size" value="10"><span>10 items</span></label>
           </div>
         </fieldset>
-        <p class="hint">1 is your favorite. You won’t know what’s coming next, and filled ranks can’t be changed.</p>
+        <fieldset id="bracket-size" hidden disabled>
+          <legend>Starting round</legend>
+          <div class="size-options bracket-sizes">
+            <label class="size-option"><input type="radio" name="bracket-size" value="16" checked><span>Round of 16</span></label>
+            <label class="size-option"><input type="radio" name="bracket-size" value="32"><span>Round of 32</span></label>
+            <label class="size-option"><input type="radio" name="bracket-size" value="64"><span>Round of 64</span></label>
+          </div>
+        </fieldset>
+        <p class="hint" id="setup-hint">1 is your favorite. You won’t know what’s coming next, and filled ranks can’t be changed.</p>
         <button id="start" class="primary" type="submit" disabled>Start ranking</button>
         <p id="setup-error" class="error" role="alert"></p>
       </form>
@@ -53,7 +59,7 @@
       </div>
       <div class="progress-line"><span id="progress-text"></span><span id="progress-count"></span></div>
       <progress id="progress" value="0" max="5" aria-label="Items ranked"></progress>
-      <div class="ranking-layout">
+      <div class="ranking-layout" id="blind-board">
         <section class="panel item-panel" id="item-panel" tabindex="-1" aria-label="Current item">
           <p class="eyebrow" id="item-label">Revealing your next item</p>
           <div class="reveal-window" id="reveal-window" aria-hidden="true"><span id="item-name"></span></div>
@@ -64,6 +70,21 @@
           <ol class="rank-slots" id="slots"></ol>
         </section>
       </div>
+      <div id="bracket-board" hidden>
+        <section class="panel match-panel" id="match-panel" aria-labelledby="match-number">
+          <p class="eyebrow" id="match-number"></p>
+          <h3 class="match-question">Who advances?</h3>
+          <div class="match-choices" id="match-choices"></div>
+          <p class="hint">Pick your favorite. Winners of adjacent matches face each other next.</p>
+        </section>
+        <section class="panel champion-panel" id="champion-panel" aria-labelledby="champion-name" hidden>
+          <p class="eyebrow">Last one standing</p>
+          <h3 id="champion-name"></h3>
+          <p class="hint" id="champion-seed"></p>
+        </section>
+        <details class="bracket-details" id="seed-details"><summary id="seed-summary">Starting seeds</summary><p class="hint">Randomly assigned. First round: 1 vs last, 2 vs second-last, and so on.</p><ol class="seed-list" id="seed-list"></ol></details>
+        <details class="bracket-details" id="history-details" hidden><summary id="history-summary">Match history</summary><ol class="match-history" id="match-history"></ol></details>
+      </div>
       <div class="result-actions" id="result-actions" hidden>
         <button type="button" class="primary" id="replay">Play again</button>
         <button type="button" class="secondary" id="change-category">Change category</button>
@@ -72,7 +93,7 @@
 
     <dialog id="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-description">
       <h2 id="reset-title">Start a new game?</h2>
-      <p id="reset-description">Your current ranking will be lost. Locked ranks can’t be edited.</p>
+      <p id="reset-description">Your current game and choices will be lost.</p>
       <div class="dialog-actions">
         <button type="button" class="secondary" id="keep-playing">Keep playing</button>
         <button type="button" class="primary" id="confirm-reset">New game</button>
@@ -81,6 +102,6 @@
     <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="panel">Enable JavaScript to play Rank. The other games are still available on the homepage.</p></noscript>
   </main>
-  <script type="module" src="./app.mjs?v=2"></script>
+  <script type="module" src="./app.mjs?v=3"></script>
 </body>
 </html>

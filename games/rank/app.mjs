@@ -1,5 +1,6 @@
-import { CATEGORIES } from './categories.mjs';
+import { CATEGORIES } from './categories.mjs?v=2';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
+import { createBracket, chooseWinner } from './bracket.mjs?v=1';
 
 const byId = id => document.getElementById(id);
 const setup = byId('setup');
@@ -15,6 +16,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let state = null;
 let category = null;
 let size = 5;
+let mode = 'blind';
 let revealInterval;
 let revealTimeout;
 let revealVersion = 0;
@@ -22,10 +24,92 @@ let revealVersion = 0;
 for (const entry of CATEGORIES) {
   const option = document.createElement('option');
   option.value = entry.id;
-  option.textContent = entry.name;
+  option.textContent = entry.pending ? `${entry.name} — awaiting your list` : entry.name;
+  option.disabled = Boolean(entry.pending);
   categorySelect.append(option);
 }
 byId('start').disabled = false;
+
+function renderSetupMode() {
+  const bracket = byId('mode-bracket').checked;
+  byId('blind-size').hidden = bracket;
+  byId('blind-size').disabled = bracket;
+  byId('bracket-size').hidden = !bracket;
+  byId('bracket-size').disabled = !bracket;
+  byId('start').textContent = bracket ? 'Start bracket' : 'Start ranking';
+  byId('setup-hint').textContent = bracket
+    ? 'Random seeds. Head-to-head choices. Pick winners until one champion remains.'
+    : '1 is your favorite. You won’t know what’s coming next, and filled ranks can’t be changed.';
+}
+byId('mode-options').addEventListener('change', renderSetupMode);
+renderSetupMode();
+
+function roundName(roundSize) {
+  return ({ 2: 'Final', 4: 'Semifinals', 8: 'Quarterfinals' })[roundSize] ?? `Round of ${roundSize}`;
+}
+
+function renderBracket() {
+  const complete = state.phase === 'complete';
+  byId('round-title').textContent = complete ? 'Your champion' : roundName(state.roundSize);
+  byId('progress').max = state.size - 1;
+  byId('progress').value = state.picks;
+  byId('progress').setAttribute('aria-label', 'Matches decided');
+  byId('progress-count').textContent = `${state.picks} / ${state.size - 1}`;
+  byId('progress-text').textContent = complete ? 'One champion. Every choice, yours.' : 'Matches decided';
+  byId('match-panel').hidden = complete;
+  byId('champion-panel').hidden = !complete;
+  const choices = byId('match-choices');
+  choices.replaceChildren();
+  if (complete) {
+    byId('champion-name').textContent = state.champion.name;
+    byId('champion-seed').textContent = `Original seed ${state.champion.seed} · ${category.name}`;
+  } else {
+    byId('match-number').textContent = `Match ${state.cursor + 1} of ${state.matches.length}`;
+    const current = state.matches[state.cursor];
+    for (const entrant of [current.left, current.right]) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'match-choice';
+      button.dataset.seed = String(entrant.seed);
+      button.setAttribute('aria-label', `Choose ${entrant.name}, seed ${entrant.seed}`);
+      const seed = document.createElement('span');
+      seed.className = 'eyebrow';
+      seed.textContent = `Seed ${entrant.seed}`;
+      const name = document.createElement('span');
+      name.className = 'contender-name';
+      name.textContent = entrant.name;
+      const action = document.createElement('span');
+      action.className = 'hint';
+      action.textContent = 'Pick winner →';
+      button.append(seed, name, action);
+      choices.append(button);
+    }
+  }
+  byId('history-details').hidden = state.history.length === 0;
+  byId('history-summary').textContent = `Match history (${state.history.length})`;
+  byId('match-history').replaceChildren();
+  for (const result of state.history) {
+    const li = document.createElement('li');
+    li.textContent = `${roundName(result.roundSize)} · Match ${result.matchNumber}: ${result.left.name} (${result.left.seed}) vs ${result.right.name} (${result.right.seed}) → ${result.winner.name}`;
+    byId('match-history').append(li);
+  }
+}
+
+function renderSeeds() {
+  byId('seed-list').replaceChildren();
+  for (const entrant of state.entrants) {
+    const li = document.createElement('li');
+    li.textContent = entrant.name;
+    byId('seed-list').append(li);
+  }
+  byId('seed-summary').textContent = `Starting seeds (${state.size})`;
+  byId('seed-details').open = false;
+  byId('history-details').open = false;
+}
+
+function focusMatch() {
+  if (!dialog.open) byId('match-choices').querySelector('button')?.focus({ preventScroll: true });
+}
 
 function cancelReveal() {
   clearInterval(revealInterval);
@@ -66,6 +150,14 @@ function renderRound() {
   setup.hidden = true;
   round.hidden = false;
   byId('round-category').textContent = `${category.name} · ${state.size} items`;
+  byId('blind-board').hidden = mode !== 'blind';
+  byId('bracket-board').hidden = mode !== 'bracket';
+  byId('result-actions').hidden = state.phase !== 'complete';
+  if (mode === 'bracket') {
+    renderBracket();
+    return;
+  }
+  byId('progress').setAttribute('aria-label', 'Items ranked');
   byId('progress').max = state.size;
   byId('progress').value = state.cursor;
   byId('progress-count').textContent = `${state.cursor} / ${state.size}`;
@@ -122,9 +214,18 @@ function revealNext() {
 
 function startRound() {
   cancelReveal();
-  state = createRound(category.items, size);
+  if (!category || category.pending) throw new Error('This category is awaiting your list. Choose an available category.');
   announcement.textContent = '';
-  revealNext();
+  if (mode === 'bracket') {
+    state = createBracket(category.items, size);
+    renderSeeds();
+    renderRound();
+    announcement.textContent = `${roundName(state.roundSize)}. Match 1 of ${state.matches.length}. Pick a winner.`;
+    focusMatch();
+  } else {
+    state = createRound(category.items, size);
+    revealNext();
+  }
 }
 
 function showSetup() {
@@ -140,13 +241,33 @@ function showSetup() {
 byId('setup-form').addEventListener('submit', event => {
   event.preventDefault();
   category = CATEGORIES.find(entry => entry.id === categorySelect.value);
-  size = Number(new FormData(event.currentTarget).get('size'));
+  const data = new FormData(event.currentTarget);
+  mode = data.get('mode') === 'bracket' ? 'bracket' : 'blind';
+  size = Number(data.get(mode === 'bracket' ? 'bracket-size' : 'size'));
   byId('setup-error').textContent = '';
   try {
     startRound();
   } catch (error) {
     byId('setup-error').textContent = error.message;
     showSetup();
+  }
+});
+
+byId('match-choices').addEventListener('click', event => {
+  const button = event.target.closest('button[data-seed]');
+  if (!button || button.disabled || mode !== 'bracket' || state?.phase !== 'choosing') return;
+  const winner = state.matches[state.cursor];
+  const seed = Number(button.dataset.seed);
+  const name = [winner.left, winner.right].find(entrant => entrant.seed === seed)?.name;
+  if (!name) return;
+  state = chooseWinner(state, seed);
+  renderRound();
+  if (state.phase === 'complete') {
+    announcement.textContent = `${name} is your champion!`;
+    byId('replay').focus({ preventScroll: true });
+  } else {
+    announcement.textContent = `${name} advances. ${roundName(state.roundSize)}, match ${state.cursor + 1} of ${state.matches.length}. Pick a winner.`;
+    focusMatch();
   }
 });
 
@@ -178,6 +299,7 @@ byId('confirm-reset').addEventListener('click', () => {
 });
 dialog.addEventListener('close', () => {
   if (state?.phase === 'placing') focusEmptySlot();
+  if (state?.phase === 'choosing') focusMatch();
 });
 byId('replay').addEventListener('click', startRound);
 byId('change-category').addEventListener('click', showSetup);

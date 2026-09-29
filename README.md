@@ -8,7 +8,9 @@ Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
 
 [Play Rank](https://denzeljohnson.github.io/mini-games/games/rank/) in your browser. Blind Ranking lets you choose a category and 5 or 10 items, then place each surprise item into an empty rank. Rank 1 is your favorite; placements are final. Items never repeat within a round. The reveal rapidly cycles through category items before settling, with an immediate reveal for reduced-motion preferences.
 
-Eight hardcoded categories have 24 items each: foods, desserts, animals, movies, music artists, video games, sports, and travel destinations. Edit `games/rank/categories.mjs` to add pools. Rounds stay in memory and reset on reload. Bracket Ranking is not available yet.
+Bracket Ranking lets you choose a Round of 16, 32, or 64. Items are randomly assigned seeds; the first round pairs 1 vs last, 2 vs second-last, and so on. Choose each matchup's winner. Winners of adjacent matches meet in the next round, with no reseeding, until you choose a champion. Original seeds and match history are available below the matchup.
+
+Both modes share six categories. NBA Players, Foods, Music Artists, and Video Games each have 100 distinct entries. Anime Characters and Movies are reserved for the user's lists and are not playable yet. Edit `games/rank/categories.mjs` and `additional-categories.mjs` to update pools. Games stay in memory and reset on reload; choices cannot be undone. After updating modules or styles, increment their import/script/link query versions to refresh returning visitors' caches.
 
 Run engine and publisher regression tests with Node 24 or later:
 
@@ -50,4 +52,4 @@ From the private working source, commit and review your changes, then publish th
 bash scripts/publish-pages.sh
 ```
 
-The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports the five root site files plus Rank's `index.html`, `rank.css`, `app.mjs`, `categories.mjs`, and `engine.mjs`. AI instructions, tests, project memory, and audit history are excluded. It stops if the public repository already tracks files outside that allowlist, leaving them untouched. Check the Pages deployment and live site after each publication.
+The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports the five root site files plus Rank's `index.html`, `rank.css`, `app.mjs`, `categories.mjs`, `additional-categories.mjs`, `engine.mjs`, and `bracket.mjs`. AI instructions, tests, project memory, and audit history are excluded. It stops if the public repository already tracks files outside that allowlist, leaving them untouched. Check the Pages deployment and live site after each publication.
