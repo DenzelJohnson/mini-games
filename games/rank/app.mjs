@@ -1,7 +1,7 @@
 import { CATEGORIES } from './categories.mjs?v=3';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
 import { createBracket, chooseWinner } from './bracket.mjs?v=1';
-import { getEntryImage, createPortrait } from './portraits.mjs?v=1';
+import { getEntryImage, createPortrait } from './portraits.mjs?v=2';
 
 const byId = id => document.getElementById(id);
 const setup = byId('setup');
@@ -81,6 +81,16 @@ function renderImageCredits() {
     link.textContent = `${name} — ${image.credit} ↗`;
     link.setAttribute('aria-label', `${name} image source (opens in a new tab)`);
     li.append(link);
+    if (image.license) {
+      const license = document.createElement('a');
+      license.href = image.license;
+      license.target = '_blank';
+      license.rel = 'noopener noreferrer';
+      license.dataset.forItem = name;
+      license.textContent = ' · License ↗';
+      license.setAttribute('aria-label', `${name} image license (opens in a new tab)`);
+      li.append(license);
+    }
     credits.append(li);
   }
   byId('image-details').hidden = credits.children.length === 0;
