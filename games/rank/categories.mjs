@@ -1,6 +1,6 @@
 import { ADDITIONAL_CATEGORIES } from './additional-categories.mjs?v=1';
 
-// Both modes use these same pools. Await user input before generating Anime/Movies.
+// Both modes share these pools. User lists may exceed 100; Movies awaits user input.
 export const CATEGORIES = [
   { id: 'nba', name: 'NBA Players', items: [
     'LeBron James', 'Stephen Curry', 'Shai Gilgeous-Alexander', 'Nikola Jokić', 'Giannis Antetokounmpo',
@@ -24,7 +24,71 @@ export const CATEGORIES = [
     'Darius Acuff Jr.', 'Caleb Wilson', 'Alex Sarr', 'Will Riley',
     'Russell Westbrook', 'Dejounte Murray', 'CJ McCollum', 'Tobias Harris', 'Brook Lopez', 'Bobby Portis',
   ] },
-  { id: 'anime', name: 'Anime Characters', pending: true, items: [] },
+  { id: 'anime', name: 'Anime Characters', items: [
+    // Naruto
+    'Minato Namikaze', 'Itachi Uchiha', 'Sakura Haruno',
+    'Shisui Uchiha', 'Kakashi Hatake', 'Naruto Uzumaki',
+    'Sakumo Hatake', 'Sasuke Uchiha', 'Madara Uchiha',
+    'Hinata Hyuga', 'Obito Uchiha (Tobi)', 'Jiraiya',
+    'Shikamaru Nara', 'Tobirama Senju', 'Gaara',
+    'Hashirama Senju', 'Deidara', 'Neji Hyuga',
+    'Sasori', 'Rock Lee', 'Might Guy',
+    'Kurama', 'Orochimaru', 'Hidan',
+    'Kushina Uzumaki', 'Iruka Umino', 'Fugaku Uchiha',
+    'Tsunade',
+    // One Piece
+    'Monkey D. Luffy', 'Roronoa Zoro', 'Sanji',
+    'Brook', 'Nico Robin', 'Jinbe',
+    'Donquixote Doflamingo', 'Dracule Mihawk', 'Boa Hancock',
+    'Crocodile', 'Gecko Moria', 'Trafalgar Law',
+    'Eustass Kid', 'Monkey D. Garp', 'Smoker',
+    'Marshall D. Teach (Blackbeard)', 'Shanks', 'Edward Newgate (Whitebeard)',
+    'Kaido', 'Charlotte Linlin (Big Mom)', 'Gol D. Roger',
+    'Sengoku', 'Kuzan (Aokiji)', 'Sakazuki (Akainu)',
+    'Issho (Fujitora)', 'Borsalino (Kizaru)', 'Aramaki (Ryokugyu)',
+    'Usopp',
+    // Hunter × Hunter
+    'Meruem', 'Gon Freecss', 'Isaac Netero',
+    'Neferpitou', 'Menthuthuyoupi (Youpi)', 'Shaiapouf',
+    'Chrollo Lucilfer', 'Silva Zoldyck', 'Zeno Zoldyck',
+    'Hisoka Morow', 'Illumi Zoldyck', 'Kurapika',
+    'Biscuit Krueger', 'Kite', 'Feitan',
+    'Morel', 'Uvogin', 'Phinks',
+    // Solo Leveling
+    'Sung Jinwoo',
+    // One-Punch Man
+    'Saitama', 'Garou', 'Blast',
+    'Boros', 'Tatsumaki', 'Sage Centipede',
+    'Flashy Flash', 'Metal Knight', 'Silver Fang (Bang)',
+    'Atomic Samurai', 'Genos', 'Superalloy Darkshine',
+    'Metal Bat', 'Drive Knight', 'Watchdog Man',
+    'Child Emperor', 'Pig God', 'Zombieman',
+    // The Seven Deadly Sins
+    'Meliodas', 'Escanor', 'Ban',
+    // Jujutsu Kaisen
+    'Ryomen Sukuna', 'Satoru Gojo', 'Yuta Okkotsu',
+    'Yuji Itadori', 'Toji Fushiguro', 'Jogo',
+    'Mahito', 'Hiromi Higuruma', 'Ryu Ishigori',
+    'Takako Uro', 'Megumi Fushiguro',
+    // My Hero Academia
+    'Izuku Midoriya (Deku)', 'Tomura Shigaraki', 'All Might',
+    'All For One', 'Star and Stripe', 'Katsuki Bakugo',
+    'Endeavor', 'Shoto Todoroki', 'Dabi',
+    'Best Jeanist', 'Mirio Togata', 'Stain',
+    // Additional named Akatsuki members
+    'Nagato (Pain)', 'Konan', 'Kisame Hoshigaki',
+    'Kakuzu', 'Black Zetsu', 'White Zetsu',
+    'Yahiko', 'Juzo Biwa', 'Kyusuke',
+    'Daibutsu', 'Kie',
+    // Additional on-screen Kage
+    'Hiruzen Sarutobi', 'Danzo Shimura', 'Reto',
+    'Shamon', 'Third Kazekage', 'Rasa',
+    'Byakuren', 'Gengetsu Hozuki', 'Third Mizukage',
+    'Yagura Karatachi', 'Mei Terumi', 'Chojuro',
+    'Ishikawa', 'Mu', 'Onoki',
+    'Kurotsuchi', 'First Raikage', 'Second Raikage',
+    'Third Raikage', 'Ay (Fourth Raikage)', 'Darui',
+  ] },
   { id: 'movies', name: 'Movies', pending: true, items: [] },
   ...ADDITIONAL_CATEGORIES,
 ];

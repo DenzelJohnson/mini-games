@@ -1,4 +1,4 @@
-import { CATEGORIES } from './categories.mjs?v=2';
+import { CATEGORIES } from './categories.mjs?v=3';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
 import { createBracket, chooseWinner } from './bracket.mjs?v=1';
 

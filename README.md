@@ -10,7 +10,7 @@ Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
 
 Bracket Ranking lets you choose a Round of 16, 32, or 64. Items are randomly assigned seeds; the first round pairs 1 vs last, 2 vs second-last, and so on. Choose each matchup's winner. Winners of adjacent matches meet in the next round, with no reseeding, until you choose a champion. Original seeds and match history are available below the matchup.
 
-Both modes share six categories. NBA Players, Foods, Music Artists, and Video Games each have 100 distinct entries. Anime Characters and Movies are reserved for the user's lists and are not playable yet. Edit `games/rank/categories.mjs` and `additional-categories.mjs` to update pools. Games stay in memory and reset on reload; choices cannot be undone. After updating modules or styles, increment their import/script/link query versions to refresh returning visitors' caches.
+Both modes share six categories. NBA Players, Foods, Music Artists, and Video Games each have 100 distinct entries. Anime Characters has 151 entries: the supplied characters plus missing named Akatsuki and on-screen Kage, with Obito/Tobi combined into one identity. User lists can exceed 100; entries are not truncated. Only Movies remains reserved for the user's list and is not playable yet. Edit `games/rank/categories.mjs` and `additional-categories.mjs` to update pools. Games stay in memory and reset on reload; choices cannot be undone. After updating modules or styles, increment their import/script/link query versions to refresh returning visitors' caches.
 
 Run engine and publisher regression tests with Node 24 or later:
 
