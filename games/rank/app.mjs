@@ -1,7 +1,7 @@
-import { CATEGORIES } from './categories.mjs?v=4';
+import { CATEGORIES } from './categories.mjs?v=5';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
 import { createBracket, chooseWinner } from './bracket.mjs?v=1';
-import { getEntryImage, createPortrait } from './portraits.mjs?v=3';
+import { getEntryImage, createPortrait } from './portraits.mjs?v=4';
 
 const byId = id => document.getElementById(id);
 const setup = byId('setup');
