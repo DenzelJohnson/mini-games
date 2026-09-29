@@ -1,6 +1,6 @@
 # Mini Games
 
-A minimal homepage linking to Wordle, NYT Crossword, Connections, and Wizard.
+A minimal homepage linking to Wordle, NYT Crossword, Connections, Wizard, Euchre, Wallz, Family Feud, and Krillion. Games appear in a single vertical list on desktop and mobile.
 
 Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
 
@@ -23,6 +23,8 @@ Open [the local homepage](http://127.0.0.1:8000/). If port 8000 is occupied, cho
 ## Add a game
 
 Add an anchor with the `game-card` class to the navigation in `index.html`. Include its source, title, description, and play label. External games use an HTTPS URL, `target="_blank"`, `rel="noopener noreferrer"`, and an accessible new-tab hint.
+
+When changing CSS, increment the stylesheet's `v` query parameter in `index.html` so returning visitors load the updated layout.
 
 For a built-in game, place its static page under `games/<game>/index.html` and use a relative link. Local game links can stay in the same tab. Update the publication allowlist to include the new game's files.
 
