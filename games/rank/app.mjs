@@ -1,7 +1,7 @@
-import { CATEGORIES } from './categories.mjs?v=3';
+import { CATEGORIES } from './categories.mjs?v=4';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
 import { createBracket, chooseWinner } from './bracket.mjs?v=1';
-import { getEntryImage, createPortrait } from './portraits.mjs?v=2';
+import { getEntryImage, createPortrait } from './portraits.mjs?v=3';
 
 const byId = id => document.getElementById(id);
 const setup = byId('setup');
@@ -25,7 +25,7 @@ let revealVersion = 0;
 for (const entry of CATEGORIES) {
   const option = document.createElement('option');
   option.value = entry.id;
-  option.textContent = entry.pending ? `${entry.name} — ${entry.id === 'movies' ? 'paused' : 'awaiting your list'}` : entry.name;
+  option.textContent = entry.pending ? `${entry.name} — awaiting your list` : entry.name;
   option.disabled = Boolean(entry.pending);
   categorySelect.append(option);
 }
