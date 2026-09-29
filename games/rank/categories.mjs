@@ -1,5 +1,6 @@
 import { ADDITIONAL_CATEGORIES } from './additional-categories.mjs?v=1';
 import { ANIME_TITLES } from './anime-titles.mjs?v=1';
+import { SUPERHEROES } from './superheroes.mjs?v=1';
 
 // Both modes share these pools. Preserve complete user lists even when they exceed100.
 export const CATEGORIES = [
@@ -91,6 +92,7 @@ export const CATEGORIES = [
     'Third Raikage', 'Ay (Fourth Raikage)', 'Darui',
   ] },
   { id: 'anime-titles', name: 'Anime', items: ANIME_TITLES },
+  { id: 'superheroes', name: 'Superheroes', items: SUPERHEROES },
   { id: 'movies', name: 'Movies', items: [
     "Avengers: Infinity War",
     "Avengers: Endgame",

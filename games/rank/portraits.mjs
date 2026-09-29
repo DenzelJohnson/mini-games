@@ -5,8 +5,9 @@ import { NBA_IMAGES } from './nba-images.mjs?v=1';
 import { MUSIC_IMAGES } from './music-images.mjs?v=1';
 import { VIDEO_GAME_IMAGES } from './video-game-images.mjs?v=1';
 import { MOVIE_IMAGES } from './movie-images.mjs?v=1';
+import { SUPERHERO_IMAGES } from './superhero-images.mjs?v=1';
 
-export const IMAGE_CATEGORIES = { anime: ANIME_IMAGES, 'anime-titles': ANIME_TITLE_IMAGES, foods: FOOD_IMAGES, nba: NBA_IMAGES, music: MUSIC_IMAGES, 'video-games': VIDEO_GAME_IMAGES, movies: MOVIE_IMAGES };
+export const IMAGE_CATEGORIES = { anime: ANIME_IMAGES, 'anime-titles': ANIME_TITLE_IMAGES, foods: FOOD_IMAGES, nba: NBA_IMAGES, music: MUSIC_IMAGES, 'video-games': VIDEO_GAME_IMAGES, movies: MOVIE_IMAGES, superheroes: SUPERHERO_IMAGES };
 
 export function getEntryImage(categoryId, name) {
   if (!Object.hasOwn(IMAGE_CATEGORIES, categoryId)) return null;
