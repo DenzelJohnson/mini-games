@@ -1,6 +1,7 @@
 import { CATEGORIES } from './categories.mjs?v=3';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
 import { createBracket, chooseWinner } from './bracket.mjs?v=1';
+import { getEntryImage, createPortrait } from './portraits.mjs?v=1';
 
 const byId = id => document.getElementById(id);
 const setup = byId('setup');
@@ -24,7 +25,7 @@ let revealVersion = 0;
 for (const entry of CATEGORIES) {
   const option = document.createElement('option');
   option.value = entry.id;
-  option.textContent = entry.pending ? `${entry.name} — awaiting your list` : entry.name;
+  option.textContent = entry.pending ? `${entry.name} — ${entry.id === 'movies' ? 'paused' : 'awaiting your list'}` : entry.name;
   option.disabled = Boolean(entry.pending);
   categorySelect.append(option);
 }
@@ -48,6 +49,43 @@ function roundName(roundSize) {
   return ({ 2: 'Final', 4: 'Semifinals', 8: 'Quarterfinals' })[roundSize] ?? `Round of ${roundSize}`;
 }
 
+function appendPortrait(parent, name, variant = 'thumb') {
+  const portrait = createPortrait(document, category.id, name, variant);
+  if (portrait) parent.append(portrait);
+}
+
+function setPortrait(id, name) {
+  const container = byId(id);
+  container.replaceChildren();
+  const portrait = name ? createPortrait(document, category.id, name, 'hero') : null;
+  container.hidden = !portrait;
+  if (portrait) container.append(portrait);
+}
+
+function renderImageCredits() {
+  const names = mode === 'bracket' ? state.entrants.map(e => e.name) : [
+    ...state.slots.filter(Boolean),
+    ...(state.phase === 'placing' ? [state.queue[state.cursor]] : []),
+  ];
+  const credits = byId('image-credits');
+  credits.replaceChildren();
+  for (const name of new Set(names)) {
+    const image = getEntryImage(category.id, name);
+    if (!image) continue;
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = image.source;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.dataset.item = name;
+    link.textContent = `${name} — ${image.credit} ↗`;
+    link.setAttribute('aria-label', `${name} image source (opens in a new tab)`);
+    li.append(link);
+    credits.append(li);
+  }
+  byId('image-details').hidden = credits.children.length === 0;
+}
+
 function renderBracket() {
   const complete = state.phase === 'complete';
   byId('round-title').textContent = complete ? 'Your champion' : roundName(state.roundSize);
@@ -60,6 +98,7 @@ function renderBracket() {
   byId('champion-panel').hidden = !complete;
   const choices = byId('match-choices');
   choices.replaceChildren();
+  setPortrait('champion-portrait', complete ? state.champion.name : null);
   if (complete) {
     byId('champion-name').textContent = state.champion.name;
     byId('champion-seed').textContent = `Original seed ${state.champion.seed} · ${category.name}`;
@@ -81,7 +120,9 @@ function renderBracket() {
       const action = document.createElement('span');
       action.className = 'hint';
       action.textContent = 'Pick winner →';
-      button.append(seed, name, action);
+      button.append(seed);
+      appendPortrait(button, entrant.name, 'hero');
+      button.append(name, action);
       choices.append(button);
     }
   }
@@ -90,7 +131,13 @@ function renderBracket() {
   byId('match-history').replaceChildren();
   for (const result of state.history) {
     const li = document.createElement('li');
-    li.textContent = `${roundName(result.roundSize)} · Match ${result.matchNumber}: ${result.left.name} (${result.left.seed}) vs ${result.right.name} (${result.right.seed}) → ${result.winner.name}`;
+    const row = document.createElement('span');
+    row.className = 'history-row';
+    appendPortrait(row, result.winner.name);
+    const label = document.createElement('span');
+    label.textContent = `${roundName(result.roundSize)} · Match ${result.matchNumber}: ${result.left.name} (${result.left.seed}) vs ${result.right.name} (${result.right.seed}) → ${result.winner.name}`;
+    row.append(label);
+    li.append(row);
     byId('match-history').append(li);
   }
 }
@@ -99,7 +146,13 @@ function renderSeeds() {
   byId('seed-list').replaceChildren();
   for (const entrant of state.entrants) {
     const li = document.createElement('li');
-    li.textContent = entrant.name;
+    const row = document.createElement('span');
+    row.className = 'seed-row';
+    appendPortrait(row, entrant.name);
+    const label = document.createElement('span');
+    label.textContent = entrant.name;
+    row.append(label);
+    li.append(row);
     byId('seed-list').append(li);
   }
   byId('seed-summary').textContent = `Starting seeds (${state.size})`;
@@ -134,7 +187,9 @@ function renderSlots() {
     const label = document.createElement('span');
     label.className = 'slot-name';
     label.textContent = item ?? 'Place here';
-    button.append(number, label);
+    button.append(number);
+    if (item !== null) appendPortrait(button, item);
+    button.append(label);
     if (item !== null) {
       const locked = document.createElement('span');
       locked.className = 'lock-label';
@@ -153,11 +208,13 @@ function renderRound() {
   byId('blind-board').hidden = mode !== 'blind';
   byId('bracket-board').hidden = mode !== 'bracket';
   byId('result-actions').hidden = state.phase !== 'complete';
+  renderImageCredits();
   if (mode === 'bracket') {
     renderBracket();
     return;
   }
   byId('progress').setAttribute('aria-label', 'Items ranked');
+  setPortrait('item-portrait', state.phase === 'placing' ? state.queue[state.cursor] : null);
   byId('progress').max = state.size;
   byId('progress').value = state.cursor;
   byId('progress-count').textContent = `${state.cursor} / ${state.size}`;
@@ -214,7 +271,7 @@ function revealNext() {
 
 function startRound() {
   cancelReveal();
-  if (!category || category.pending) throw new Error('This category is awaiting your list. Choose an available category.');
+  if (!category || category.pending) throw new Error('This category is not available. Choose an available category.');
   announcement.textContent = '';
   if (mode === 'bracket') {
     state = createBracket(category.items, size);
@@ -234,6 +291,14 @@ function showSetup() {
   round.hidden = true;
   setup.hidden = false;
   slots.replaceChildren();
+  byId('item-portrait').replaceChildren();
+  byId('champion-portrait').replaceChildren();
+  byId('match-choices').replaceChildren();
+  byId('seed-list').replaceChildren();
+  byId('match-history').replaceChildren();
+  byId('image-credits').replaceChildren();
+  byId('image-details').hidden = true;
+  byId('image-details').open = false;
   announcement.textContent = '';
   categorySelect.focus();
 }

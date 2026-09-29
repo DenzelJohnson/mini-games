@@ -56,7 +56,7 @@ h3 { font-size: .875rem; margin: 0; }
 .rank-slot { width: 100%; display: flex; align-items: center; gap: .875rem; padding: .75rem 1rem; text-align: left; border: 1px solid #dce0e6; background: #fff; color: #20242b; min-height: 60px; }
 .rank-slot:not(:disabled):hover { border-color: #245bba; background: #f3f7ff; }
 .rank-number { display: grid; place-items: center; flex: 0 0 1.75rem; height: 1.75rem; font-size: .875rem; border-radius: .375rem; background: #edf0f4; }
-.slot-name { flex: 1; overflow-wrap: anywhere; }
+.slot-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .rank-slot.empty .slot-name { color: #59616d; font-weight: 400; }
 .rank-slot.locked { background: #f0f3f7; }
 .lock-label { color: #59616d; font-size: .6875rem; font-weight: 400; }
@@ -75,6 +75,14 @@ h3 { font-size: .875rem; margin: 0; }
 .seed-list li, .match-history li { padding-left: .25rem; overflow-wrap: anywhere; }
 .match-history { padding-left: 1.5rem; font-size: .875rem; line-height: 1.6; }
 .match-history li + li { margin-top: .75rem; }
+.entry-portrait { display: block; object-fit: contain; object-position: center; border-radius: .5rem; background: #edf0f4; }
+.portrait-hero { width: min(100%, 14rem); height: 14rem; flex-shrink: 0; margin-inline: auto; }
+.portrait-frame { width: 100%; margin-bottom: 1rem; }
+.portrait-thumb { width: 2.5rem; height: 3rem; flex: 0 0 2.5rem; }
+.seed-row, .history-row { display: flex; align-items: center; gap: .75rem; min-width: 0; }
+.seed-row > span, .history-row > span { min-width: 0; overflow-wrap: anywhere; }
+.image-credits { padding-left: 1.25rem; font-size: .75rem; line-height: 1.75; overflow-wrap: anywhere; }
+.image-credits a { color: #59616d; }
 dialog { width: min(100% - 2rem, 28rem); padding: 1.75rem; border: 1px solid #dce0e6; border-radius: 1rem; color: #20242b; }
 dialog::backdrop { background: #20242b66; }
 dialog h2 { margin-top: 0; }
@@ -92,6 +100,10 @@ dialog p { color: #59616d; }
   .item-panel .eyebrow { margin-bottom: .25rem; }
   .item-panel .hint { margin-top: .5rem; }
   .rank-slot { padding: .75rem; }
+  .rank-slot { gap: .5rem; }
+  .lock-label { display: none; }
+  .item-panel .portrait-hero { height: 8rem; width: min(100%, 8rem); }
+  .portrait-hero { height: 10rem; width: min(100%, 10rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   .spinning #item-name, .settled #item-name { animation: none; }
