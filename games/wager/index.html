@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build two five-entry rosters by bidding from $20 budgets.">
+  <title>Wager for a Roster · Mini Games</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="stylesheet" href="../../styles.css?v=2">
+  <link rel="stylesheet" href="../rank/rank.css?v=4">
+  <link rel="stylesheet" href="./wager.css?v=1">
+</head>
+<body>
+  <main class="page rank-page wager-page">
+    <a class="back-link" href="../../">← Mini Games</a>
+    <header class="page-header rank-header">
+      <p class="eyebrow">A head-to-head draft</p>
+      <h1>Wager for a Roster</h1>
+      <p class="intro">Spend wisely. Build your five.</p>
+    </header>
+
+    <section id="setup" class="panel" aria-labelledby="setup-title">
+      <h2 id="setup-title">Choose a category</h2>
+      <p>Each player starts with $20. Bid on a new entry each round; the opening player alternates. Raise the bid or pass to let your opponent take it.</p>
+      <form id="setup-form">
+        <label for="category">Category</label>
+        <select id="category" name="category" required></select>
+        <p class="hint">Bids start at $1. You must keep $1 for every roster spot you would still need after winning. If one roster fills first, the other player claims new entries for $1.</p>
+        <button id="start" class="primary" type="submit" disabled>Start drafting</button>
+        <p id="setup-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="game" hidden aria-labelledby="game-title">
+      <div class="round-heading wager-heading">
+        <div><p class="eyebrow" id="round-label"></p><h2 id="game-title">Make your bid</h2></div>
+        <button type="button" class="text-button" id="new-game">New game</button>
+      </div>
+
+      <div class="wager-balances" aria-label="Player balances">
+        <div class="panel wager-balance" id="balance-panel-1"><span>Player 1</span><strong id="cash-1">$20</strong><small id="count-1">0 of 5 entries</small></div>
+        <div class="panel wager-balance" id="balance-panel-2"><span>Player 2</span><strong id="cash-2">$20</strong><small id="count-2">0 of 5 entries</small></div>
+      </div>
+
+      <section class="panel wager-auction" id="auction" aria-labelledby="item-name">
+        <p class="eyebrow" id="starter-label"></p>
+        <div class="portrait-frame" id="item-portrait" hidden></div>
+        <h3 id="item-name"></h3>
+        <p id="turn-label" class="wager-turn"></p>
+        <p id="high-bid" class="hint"></p>
+        <form id="bid-form">
+          <label for="bid" id="bid-label">Your bid</label>
+          <div class="wager-bid-row"><span aria-hidden="true">$</span><input id="bid" name="bid" type="number" inputmode="numeric" min="1" max="16" step="1" required><button id="place-bid" type="submit" class="primary">Place bid</button></div>
+          <p id="bid-range" class="hint"></p>
+        </form>
+        <button id="pass" type="button" class="secondary" hidden>Pass · let opponent take it</button>
+        <button id="claim" type="button" class="primary" hidden>Take for $1</button>
+        <div id="award" class="wager-award" hidden>
+          <p id="award-text"></p>
+          <button id="next-item" type="button" class="primary">Next entry</button>
+        </div>
+        <p id="game-error" class="error" role="alert"></p>
+      </section>
+
+      <div class="wager-rosters" aria-label="Player rosters">
+        <section class="panel" aria-labelledby="roster-title-1"><h3 id="roster-title-1">Player 1 roster</h3><ol id="roster-1" class="wager-roster"></ol></section>
+        <section class="panel" aria-labelledby="roster-title-2"><h3 id="roster-title-2">Player 2 roster</h3><ol id="roster-2" class="wager-roster"></ol></section>
+      </div>
+
+      <details class="bracket-details image-details" id="image-details" hidden>
+        <summary>Image sources</summary>
+        <p class="hint">Artwork belongs to its respective rights holders. Source links open in a new tab.</p>
+        <ul class="image-credits" id="image-credits"></ul>
+      </details>
+      <div id="result-actions" class="result-actions" hidden>
+        <button id="replay" type="button" class="primary">Play again</button>
+        <button id="change-category" type="button" class="secondary">Change category</button>
+      </div>
+    </section>
+
+    <dialog id="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-description">
+      <h2 id="reset-title">Start a new game?</h2>
+      <p id="reset-description">Both rosters and all bids will be lost.</p>
+      <div class="dialog-actions"><button id="keep-playing" type="button" class="secondary">Keep playing</button><button id="confirm-reset" type="button" class="primary">New game</button></div>
+    </dialog>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    <noscript><p class="panel">Enable JavaScript to play Wager for a Roster.</p></noscript>
+  </main>
+  <script type="module" src="./app.mjs?v=2"></script>
+</body>
+</html>

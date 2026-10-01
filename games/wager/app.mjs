@@ -1,5 +1,5 @@
-import { CATEGORIES } from '../categories.mjs?v=6';
-import { createPortrait, getEntryImage } from '../portraits.mjs?v=5';
+import { CATEGORIES } from '../rank/categories.mjs?v=6';
+import { createPortrait, getEntryImage } from '../rank/portraits.mjs?v=5';
 import { createWager, maxBid, placeBid, concede, claimSolo, nextItem, ROSTER_SIZE } from './engine.mjs?v=1';
 
 const byId = id => document.getElementById(id);
