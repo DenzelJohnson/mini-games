@@ -3,97 +3,62 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A small collection of games for your next break.">
+  <meta name="description" content="Pick a game from five collections of mini games.">
   <title>Mini Games</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="stylesheet" href="./styles.css?v=2">
+  <link rel="stylesheet" href="./styles.css?v=3">
 </head>
 <body>
-  <main class="page">
-    <header class="page-header">
-      <p class="eyebrow">A little time to play</p>
+  <main class="page hub-page">
+    <header class="hub-header">
+      <span class="hub-mark" aria-hidden="true">✳</span>
       <h1>Mini Games</h1>
-      <p class="intro">Pick a game. Take a break.</p>
+      <p>Choose a category.</p>
     </header>
 
     <nav class="games" aria-label="Choose a game">
-      <a class="game-card" href="https://www.nytimes.com/games/wordle/index.html" target="_blank" rel="noopener noreferrer">
-        <span class="source">New York Times</span>
-        <h2>Wordle</h2>
-        <p>Guess the five-letter word in six tries.</p>
-        <span class="play">Play Wordle<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
+      <details class="game-folder" data-folder="multiplayer">
+        <summary><span class="folder-index" aria-hidden="true">01</span><span class="folder-name">Multiplayer</span><span class="folder-count">3 games</span><span class="folder-chevron" aria-hidden="true"></span></summary>
+        <div class="folder-games">
+          <a class="game-link" href="./games/charades/"><span class="game-name">Charades</span><span class="game-arrow" aria-hidden="true">→</span></a>
+          <a class="game-link" href="./games/wager/"><span class="game-name">Wager for a Roster</span><span class="game-arrow" aria-hidden="true">→</span></a>
+          <a class="game-link" href="https://www.wallz.gg/" target="_blank" rel="noopener noreferrer"><span class="game-name">Wallz</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+        </div>
+      </details>
 
-      <a class="game-card" href="https://www.nytimes.com/crosswords/game/daily" target="_blank" rel="noopener noreferrer">
-        <span class="source">New York Times</span>
-        <h2>Crossword</h2>
-        <p>Settle in with the daily crossword.</p>
-        <span class="play">Play Crossword<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
+      <details class="game-folder" data-folder="rank">
+        <summary><span class="folder-index" aria-hidden="true">02</span><span class="folder-name">Rank</span><span class="folder-count">2 games</span><span class="folder-chevron" aria-hidden="true"></span></summary>
+        <div class="folder-games">
+          <a class="game-link" href="./games/rank/?mode=blind"><span class="game-name">Blind Ranking</span><span class="game-arrow" aria-hidden="true">→</span></a>
+          <a class="game-link" href="./games/rank/?mode=bracket"><span class="game-name">Bracket Ranking</span><span class="game-arrow" aria-hidden="true">→</span></a>
+        </div>
+      </details>
 
-      <a class="game-card" href="https://www.nytimes.com/games/connections" target="_blank" rel="noopener noreferrer">
-        <span class="source">New York Times</span>
-        <h2>Connections</h2>
-        <p>Find the four groups hiding in sixteen words.</p>
-        <span class="play">Play Connections<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
+      <details class="game-folder" data-folder="card-games">
+        <summary><span class="folder-index" aria-hidden="true">03</span><span class="folder-name">Card Games</span><span class="folder-count">2 games</span><span class="folder-chevron" aria-hidden="true"></span></summary>
+        <div class="folder-games">
+          <a class="game-link" href="https://denzeljohnson.github.io/wizard-card-game/" target="_blank" rel="noopener noreferrer"><span class="game-name">Wizard</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+          <a class="game-link" href="https://denzeljohnson.github.io/euchre-card-game/" target="_blank" rel="noopener noreferrer"><span class="game-name">Euchre</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+        </div>
+      </details>
 
-      <a class="game-card" href="https://denzeljohnson.github.io/wizard-card-game/" target="_blank" rel="noopener noreferrer">
-        <span class="source">Denzel Johnson</span>
-        <h2>Wizard</h2>
-        <p>Make your bid and play your hand.</p>
-        <span class="play">Play Wizard<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
+      <details class="game-folder" data-folder="game-shows">
+        <summary><span class="folder-index" aria-hidden="true">04</span><span class="folder-name">Game Shows</span><span class="folder-count">1 game</span><span class="folder-chevron" aria-hidden="true"></span></summary>
+        <div class="folder-games">
+          <a class="game-link" href="https://games.washingtonpost.com/games/family-feud" target="_blank" rel="noopener noreferrer"><span class="game-name">Family Feud</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+        </div>
+      </details>
 
-      <a class="game-card" href="https://denzeljohnson.github.io/euchre-card-game/" target="_blank" rel="noopener noreferrer">
-        <span class="source">Denzel Johnson</span>
-        <h2>Euchre</h2>
-        <p>Team up and take the tricks.</p>
-        <span class="play">Play Euchre<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
-
-      <a class="game-card" href="https://www.wallz.gg/" target="_blank" rel="noopener noreferrer">
-        <span class="source">Wallz</span>
-        <h2>Wallz</h2>
-        <p>Race across the board and block your opponent.</p>
-        <span class="play">Play Wallz<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
-
-      <a class="game-card" href="https://games.washingtonpost.com/games/family-feud" target="_blank" rel="noopener noreferrer">
-        <span class="source">Washington Post</span>
-        <h2>Family Feud</h2>
-        <p>Guess the most popular survey answers.</p>
-        <span class="play">Play Family Feud<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
-
-      <a class="game-card" href="https://krillion.io/unlimited/classic" target="_blank" rel="noopener noreferrer">
-        <span class="source">Krillion</span>
-        <h2>Krillion</h2>
-        <p>Play the unlimited classic game.</p>
-        <span class="play">Play Krillion<span class="sr-only"> (opens in a new tab)</span></span>
-      </a>
-
-      <a class="game-card" href="./games/rank/">
-        <span class="source">Built in</span>
-        <h2>Rank</h2>
-        <p>Blind rank your favorites or pick a bracket champion.</p>
-        <span class="play">Play Rank</span>
-      </a>
-      <a class="game-card" href="./games/wager/">
-        <span class="source">Built in</span>
-        <h2>Wager for a Roster</h2>
-        <p>Bid for your favorites and build a five-entry team.</p>
-        <span class="play">Play Wager for a Roster</span>
-      </a>
-      <a class="game-card" href="./games/charades/">
-        <span class="source">Built in</span>
-        <h2>Charades</h2>
-        <p>Act out surprise prompts while your friends race the clock.</p>
-        <span class="play">Play Charades</span>
-      </a>
+      <details class="game-folder" data-folder="word-games">
+        <summary><span class="folder-index" aria-hidden="true">05</span><span class="folder-name">Word Games</span><span class="folder-count">4 games</span><span class="folder-chevron" aria-hidden="true"></span></summary>
+        <div class="folder-games">
+          <a class="game-link" href="https://www.nytimes.com/games/wordle/index.html" target="_blank" rel="noopener noreferrer"><span class="game-name">Wordle</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+          <a class="game-link" href="https://www.nytimes.com/crosswords/game/daily" target="_blank" rel="noopener noreferrer"><span class="game-name">Crossword</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+          <a class="game-link" href="https://www.nytimes.com/games/connections" target="_blank" rel="noopener noreferrer"><span class="game-name">Connections</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+          <a class="game-link" href="https://krillion.io/unlimited/classic" target="_blank" rel="noopener noreferrer"><span class="game-name">Krillion</span><span class="game-arrow" aria-hidden="true">↗</span><span class="sr-only">opens in a new tab</span></a>
+        </div>
+      </details>
     </nav>
-
-    <footer><p>External games open in a new tab. Built-in games open here.</p></footer>
   </main>
 </body>
 </html>

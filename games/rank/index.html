@@ -6,7 +6,7 @@
   <meta name="description" content="Play Blind Ranking with 5 or 10 items, or pick a champion in a 16, 32, or 64-item bracket.">
   <title>Rank · Mini Games</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-  <link rel="stylesheet" href="../../styles.css?v=2">
+  <link rel="stylesheet" href="../../styles.css?v=3">
   <link rel="stylesheet" href="./rank.css?v=4">
 </head>
 <body>
@@ -24,7 +24,7 @@
         <fieldset id="mode-options">
           <legend class="sr-only">Game mode</legend>
           <div class="mode-options">
-            <label class="mode-card"><input type="radio" name="mode" value="blind" checked aria-label="Blind Ranking"><span><span class="mode-label">Blind Ranking</span>One surprise at a time. Every rank is final.</span></label>
+            <label class="mode-card"><input id="mode-blind" type="radio" name="mode" value="blind" checked aria-label="Blind Ranking"><span><span class="mode-label">Blind Ranking</span>One surprise at a time. Every rank is final.</span></label>
             <label class="mode-card"><input id="mode-bracket" type="radio" name="mode" value="bracket" aria-label="Bracket Ranking"><span><span class="mode-label">Bracket Ranking</span>Head-to-head choices. One champion.</span></label>
           </div>
         </fieldset>
@@ -107,6 +107,6 @@
     <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="panel">Enable JavaScript to play Rank. The other games are still available on the homepage.</p></noscript>
   </main>
-  <script type="module" src="./app.mjs?v=9"></script>
+  <script type="module" src="./app.mjs?v=10"></script>
 </body>
 </html>

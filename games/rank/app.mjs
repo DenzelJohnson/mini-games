@@ -31,6 +31,10 @@ for (const entry of CATEGORIES) {
 }
 byId('start').disabled = false;
 
+const requestedMode = new URLSearchParams(window.location.search).get('mode');
+byId('mode-bracket').checked = requestedMode === 'bracket';
+byId('mode-blind').checked = requestedMode !== 'bracket';
+
 function renderSetupMode() {
   const bracket = byId('mode-bracket').checked;
   byId('blind-size').hidden = bracket;

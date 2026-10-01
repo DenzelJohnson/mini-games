@@ -1,6 +1,6 @@
 # Mini Games
 
-A minimal homepage with eight external games and three built-in games: Rank, Wager for a Roster, and Charades. All eleven games appear in a single vertical list on desktop and mobile.
+A minimal homepage with five expandable folders in one column: Multiplayer (Charades, Wager for a Roster, Wallz), Rank (Blind Ranking, Bracket Ranking), Card Games (Wizard, Euchre), Game Shows (Family Feud), and Word Games (Wordle, Crossword, Connections, Krillion). Its twelve direct links retain all eight external destinations and three built-in games. External links open in a new tab; built-in games open here.
 
 Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
 
@@ -12,7 +12,7 @@ All300 prompts are hardcoded in `games/charades/prompts.mjs`: Animals40, Everyda
 
 ## Rank
 
-[Play Rank](https://denzeljohnson.github.io/mini-games/games/rank/) in your browser. Blind Ranking lets you choose a category and 5 or 10 items, then place each surprise item into an empty rank. Rank 1 is your favorite; placements are final. Items never repeat within a round. The reveal rapidly cycles through category items before settling, with an immediate reveal for reduced-motion preferences.
+[Play Rank](https://denzeljohnson.github.io/mini-games/games/rank/) in your browser. The homepage's Blind Ranking and Bracket Ranking links open the same Rank setup with that mode selected; you still choose a category and start the game yourself. An absent or unknown `mode` query defaults to Blind. Blind Ranking lets you choose a category and 5 or 10 items, then place each surprise item into an empty rank. Rank 1 is your favorite; placements are final. Items never repeat within a round. The reveal rapidly cycles through category items before settling, with an immediate reveal for reduced-motion preferences.
 
 Bracket Ranking lets you choose a Round of 16, 32, or 64. Items are randomly assigned seeds; the first round pairs 1 vs last, 2 vs second-last, and so on. Choose each matchup's winner. Winners of adjacent matches meet in the next round, with no reseeding, until you choose a champion. Original seeds and match history are available below the matchup.
 
@@ -48,9 +48,9 @@ Open [the local homepage](http://127.0.0.1:8000/). If port 8000 is occupied, cho
 
 ## Add a game
 
-Add an anchor with the `game-card` class to the navigation in `index.html`. Include its source, title, description, and play label. External games use an HTTPS URL, `target="_blank"`, `rel="noopener noreferrer"`, and an accessible new-tab hint.
+Add an anchor with the `game-link` class under the matching `game-folder` in `index.html`, then update the folder count. Include a visible `game-name` and arrow. External games use an HTTPS URL, `target="_blank"`, `rel="noopener noreferrer"`, and an accessible new-tab hint. Keep the five folder summaries and link order aligned with the homepage tests.
 
-When changing CSS, increment the stylesheet's `v` query parameter in `index.html` so returning visitors load the updated layout.
+When changing shared CSS, increment the stylesheet's `v` query parameter in `index.html` and the three built-in pages so returning visitors load the updated layout.
 
 For a built-in game, place its static page under `games/<game>/index.html` and use a relative link. Local game links can stay in the same tab. Update the publication allowlist to include the new game's files.
 
