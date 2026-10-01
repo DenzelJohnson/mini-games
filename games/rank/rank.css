@@ -5,6 +5,9 @@
 .rank-header { margin-top: 2rem; margin-bottom: 2rem; }
 .panel { padding: 1.75rem; border: 1px solid #dce0e6; border-radius: 1rem; background: #fff; }
 .panel > h2 { margin-top: 0; }
+.wager-invite { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #dce0e6; }
+.wager-invite .hint { margin: 0 0 .25rem; }
+.wager-invite a { color: #245bba; font-size: .875rem; font-weight: 600; }
 .mode-options { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.5rem 0 2rem; }
 .mode-card { display: flex; align-items: flex-start; gap: .75rem; padding: 1rem; border: 1px solid #dce0e6; border-radius: .75rem; font-size: .875rem; color: #59616d; cursor: pointer; }
 .mode-card input { flex-shrink: 0; margin-top: .15rem; }
@@ -32,7 +35,7 @@ button { font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; b
 .text-button:hover { text-decoration: underline; }
 button:disabled { cursor: default; }
 .primary:disabled { opacity: .6; }
-:is(button, select, input, summary, .back-link):focus-visible { outline: 3px solid #245bba; outline-offset: 4px; }
+:is(button, select, input, summary, .back-link, .wager-invite a):focus-visible { outline: 3px solid #245bba; outline-offset: 4px; }
 .error { color: #a12727; font-size: .875rem; }
 .error:empty { display: none; }
 .round-heading, .progress-line, .slots-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
