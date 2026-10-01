@@ -1,14 +1,20 @@
 # Mini Games
 
-A minimal homepage with five expandable folders in one column: Multiplayer (Charades, Wager for a Roster, Wallz), Rank (Blind Ranking, Bracket Ranking), Card Games (Wizard, Euchre), Game Shows (Family Feud), and Word Games (Wordle, Crossword, Connections, Krillion). Its twelve direct links retain all eight external destinations and three built-in games. External links open in a new tab; built-in games open here.
+A minimal homepage with five expandable folders in one column: Multiplayer (Charades, Guess 10 words with 15 Clues, Wager for a Roster, Wallz), Rank (Blind Ranking, Bracket Ranking), Card Games (Wizard, Euchre), Game Shows (Family Feud), and Word Games (Wordle, Crossword, Connections, Krillion). Its thirteen direct links retain all eight external destinations and four built-in games. External links open in a new tab; built-in games open here.
 
 Live site: [Mini Games](https://denzeljohnson.github.io/mini-games/).
 
 ## Charades
 
-[Play Charades](https://denzeljohnson.github.io/mini-games/games/charades/). One actor looks at the screen and silently acts while friends guess. Choose a mixed bag or one of eight categories and a60-,90-, or120-second round. Reveal starts the clock; Correct earns a point, Skip moves on. Pause hides the prompt and saves the remaining time. Leaving the tab also pauses; resume when ready. Review correct/skipped prompts after timeout, deck exhaustion or End round, then replay or pass the device.
+[Play Charades](https://denzeljohnson.github.io/mini-games/games/charades/). In classic mode, one actor looks at the screen and silently acts while friends guess. Switch on Reverse Charades to describe to a partner how to act out the action while everyone else guesses. The same prompts, timer, Correct/Skip scoring and pause rules apply. Choose a mixed bag or one of eight categories and a60-,90-, or120-second round. Reveal starts the clock. Pause hides the prompt and saves the remaining time. Leaving the tab also pauses; resume when ready. Review correct/skipped prompts after timeout, deck exhaustion or End round, then replay or pass the device.
 
 All300 prompts are hardcoded in `games/charades/prompts.mjs`: Animals40, Everyday actions40, Objects40, Jobs40, Sports35, Movies & TV35, Characters35 and Tricky scenarios35. No repeats within a round. No sensors, accounts, network-generated prompts or saved scores. Reload resets the game. Keep prompt categories, engine/controller/UI tests and the exact publication boundary coordinated.
+
+## Guess 10 words with 15 Clues
+
+[Play Guess 10 words with 15 Clues](https://denzeljohnson.github.io/mini-games/games/clues/) with a partner. Player 1 explains while Player 2 guesses in the first round; they switch roles each replay. Only the explainer looks at the screen. Say a one-word clue aloud, tap **Use a clue** to count it, and repeat until the guesser gets the word. Tap **Guessed it** to move on. At least one clue must be counted for each word. Guess all ten words using no more than fifteen clues total. The fifteenth clue can still lead to a correct guess; if any words remain afterward, the round ends.
+
+The 2,000 unique prompt things are hardcoded in `games/clues/things.mjs`; each round randomly chooses ten without repeats. The app does not listen to speech or store scores. **End round** stops early; **Switch roles & play again** creates a fresh round. The answer list appears only in results.
 
 ## Rank
 
@@ -50,7 +56,7 @@ Open [the local homepage](http://127.0.0.1:8000/). If port 8000 is occupied, cho
 
 Add an anchor with the `game-link` class under the matching `game-folder` in `index.html`, then update the folder count. Include a visible `game-name` and arrow. External games use an HTTPS URL, `target="_blank"`, `rel="noopener noreferrer"`, and an accessible new-tab hint. Keep the five folder summaries and link order aligned with the homepage tests.
 
-When changing shared CSS, increment the stylesheet's `v` query parameter in `index.html` and the three built-in pages so returning visitors load the updated layout.
+When changing shared CSS, increment the stylesheet's `v` query parameter in `index.html` and the four built-in pages so returning visitors load the updated layout.
 
 For a built-in game, place its static page under `games/<game>/index.html` and use a relative link. Local game links can stay in the same tab. Update the publication allowlist to include the new game's files.
 
@@ -64,4 +70,4 @@ From the private working source, commit and review your changes, then publish th
 bash scripts/publish-pages.sh
 ```
 
-The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports five root assets, nineteen Rank files (including the old-route redirect), four standalone Wager files, and six Charades files —34 files total. AI instructions, tests, project memory, and audit history are excluded. It retires only the three named old Wager assets and refuses any other unexpected tracked public file. Check the Pages deployment and live site after each publication.
+The script requires the GitHub CLI authenticated as the repository owner. Its explicit `site_files` allowlist exports five root assets, nineteen Rank files (including the old-route redirect), four standalone Wager files, six Charades files, and five clue-game files —39 files total. AI instructions, tests, project memory, and audit history are excluded. It retires only the three named old Wager assets and refuses any other unexpected tracked public file. Check the Pages deployment and live site after each publication.

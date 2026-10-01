@@ -5,7 +5,21 @@ export function mountCharades({document, window, now = () => performance.now(),
   schedule = setInterval, cancel = clearInterval, random = Math.random}) {
   const el = id => document.getElementById(id);
   let round = null, timer = null, generation = 0, resumeAfterDialog = false;
-  let settings = {category: 'mixed', duration: 60};
+  let settings = {category: 'mixed', duration: 60, reverse: false};
+
+  function renderInstructions(reverse) {
+    el('instructions-title').textContent = reverse ? 'One director. One actor. Everyone else guesses.' : 'One actor. Everyone else guesses.';
+    el('instructions-text').textContent = reverse ?
+      'Only the director looks at the screen. Describe to your partner how to act out the action; your partner performs it while everyone else guesses. Tap Correct or Skip to move on.' :
+      'Only the actor looks at the screen. Use gestures, not words or sounds. Tap Correct for a right guess, or Skip to move on. Pass the device to the next actor after the round.';
+    el('ready-eyebrow').textContent = reverse ? 'For the director’s eyes only' : 'For the actor’s eyes only';
+    el('ready-title').textContent = reverse ? 'Ready to direct?' : 'Ready to act?';
+    el('ready-instructions').textContent = reverse ?
+      'Only you look at the screen. Describe to your partner how to act out the action. Your timer starts when you reveal the first prompt.' :
+      'Face the screen toward you. Your timer starts when you reveal the first prompt.';
+    el('playing-instructions').textContent = reverse ?
+      'Tell your partner how to act this out while the others guess.' : 'No talking. Make your moves.';
+  }
 
   function stopClock() {
     generation++;
@@ -26,6 +40,7 @@ export function mountCharades({document, window, now = () => performance.now(),
   }
 
   function render(focus = null, announce = false) {
+    renderInstructions(round ? settings.reverse : el('reverse-mode').checked);
     const phase = round?.phase;
     el('setup').hidden = !!round;
     el('round').hidden = !round || phase === 'finished';
@@ -71,7 +86,7 @@ export function mountCharades({document, window, now = () => performance.now(),
       if (announce) el('announcement').textContent = phase === 'running' ?
         `${round.queue[round.cursor].text}. ${round.queue[round.cursor].category}. ${score} correct.` :
         phase === 'finished' ? `${el('result-reason').textContent} ${score} correct, ${skips} skipped.` :
-        phase === 'paused' ? 'Round paused. Prompt hidden.' : 'Actor ready. Reveal when you are ready to start.';
+        phase === 'paused' ? 'Round paused. Prompt hidden.' : `${settings.reverse ? 'Director' : 'Actor'} ready. Reveal when you are ready to start.`;
     }
     if (focus) el(focus).focus();
   }
@@ -132,9 +147,10 @@ export function mountCharades({document, window, now = () => performance.now(),
     el('category').append(option);
   }
   el('category').value = 'mixed';
+  el('reverse-mode').addEventListener('change', () => { if (!round) render(); });
   el('setup-form').addEventListener('submit', event => {
     event.preventDefault();
-    settings = {category: el('category').value, duration: Number(el('duration').value)};
+    settings = {category: el('category').value, duration: Number(el('duration').value), reverse: el('reverse-mode').checked};
     el('setup-error').textContent = '';
     try { prepare(); } catch (error) {
       round = null;

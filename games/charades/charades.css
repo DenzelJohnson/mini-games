@@ -7,6 +7,10 @@
 label { display: block; margin: 1rem 0 .5rem; font-size: .875rem; font-weight: 600; }
 select, button { font: inherit; }
 select { width: 100%; max-width: 100%; background: #fff; border: 1px solid #c3cad4; border-radius: .6rem; padding: .8rem; color: inherit; }
+.mode-toggle { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border: 1px solid #c3cad4; border-radius: .7rem; cursor: pointer; }
+.mode-toggle span { display: grid; gap: .15rem; }
+.mode-toggle small { color: #59616d; font-weight: 400; line-height: 1.4; }
+.mode-toggle input { width: 1.35rem; height: 1.35rem; flex: none; accent-color: #28675f; cursor: pointer; }
 button { min-height: 48px; border: 1px solid transparent; border-radius: .6rem; padding: .7rem 1.15rem; cursor: pointer; font-weight: 600; line-height: 1.4; }
 .primary { background: #20242b; color: #fff; }
 .secondary { background: #f7f8fa; color: #20242b; border-color: #dce0e6; }

@@ -3,24 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Act it out. A timed, pass-and-play Charades game with 300 varied prompts.">
+  <meta name="description" content="Play classic or Reverse Charades with 300 varied prompts.">
   <title>Charades · Mini Games</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=3">
-  <link rel="stylesheet" href="./charades.css?v=1">
+  <link rel="stylesheet" href="./charades.css?v=2">
 </head>
 <body>
   <main class="page charades-page">
     <a class="back-link" href="../../">← Mini Games</a>
     <header class="page-header">
-      <p class="eyebrow">Big gestures. Zero words.</p>
+      <p class="eyebrow">Pass-and-play</p>
       <h1>Charades</h1>
-      <p class="intro">Act it out. Let your friends do the guessing.</p>
+      <p class="intro">Choose classic or Reverse Charades.</p>
     </header>
 
     <section id="setup" class="panel" aria-labelledby="setup-title">
       <h2 id="setup-title">Set the scene</h2>
       <form id="setup-form">
+        <label class="mode-toggle" for="reverse-mode"><span><strong>Reverse Charades</strong><small>Describe the action for your partner to act out.</small></span><input id="reverse-mode" name="reverse-mode" type="checkbox" role="switch"></label>
         <label for="category">Category</label>
         <select id="category" name="category" required></select>
         <label for="duration">Round length</label>
@@ -33,8 +34,8 @@
         <p id="setup-error" class="error" role="alert"></p>
       </form>
       <div class="how-to">
-        <h3>One actor. Everyone else guesses.</h3>
-        <p>Only the actor looks at the screen. Use gestures, not words or sounds. Tap <strong>Correct</strong> for a right guess, or <strong>Skip</strong> to move on. Pass the device to the next actor after the round.</p>
+        <h3 id="instructions-title">One actor. Everyone else guesses.</h3>
+        <p id="instructions-text">Only the actor looks at the screen. Use gestures, not words or sounds. Tap <strong>Correct</strong> for a right guess, or <strong>Skip</strong> to move on. Pass the device to the next actor after the round.</p>
         <p class="hint">300 handpicked prompts. No repeats within a round. Leaving the tab pauses the timer.</p>
       </div>
     </section>
@@ -51,15 +52,15 @@
       </div>
       <progress id="time-progress" aria-label="Time remaining" max="60" value="60"></progress>
       <section id="ready" class="panel prompt-card" aria-labelledby="ready-title">
-        <p class="eyebrow">For the actor’s eyes only</p>
+        <p class="eyebrow" id="ready-eyebrow">For the actor’s eyes only</p>
         <h3 id="ready-title">Ready to act?</h3>
-        <p>Face the screen toward you. Your timer starts when you reveal the first prompt.</p>
+        <p id="ready-instructions">Face the screen toward you. Your timer starts when you reveal the first prompt.</p>
         <button id="reveal" class="primary" type="button">Reveal &amp; start</button>
       </section>
       <section id="playing" class="panel prompt-card" aria-label="Current prompt" hidden>
         <p class="eyebrow" id="prompt-category"></p>
         <h3 id="prompt" class="prompt-text"></h3>
-        <p class="hint">No talking. Make your moves.</p>
+        <p class="hint" id="playing-instructions">No talking. Make your moves.</p>
         <div class="answer-actions">
           <button id="skip" class="secondary" type="button">Skip</button>
           <button id="correct" class="primary" type="button">Correct</button>
@@ -103,6 +104,6 @@
     <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="panel">Enable JavaScript to play Charades. External games are still available on the homepage.</p></noscript>
   </main>
-  <script type="module" src="./app.mjs?v=1"></script>
+  <script type="module" src="./app.mjs?v=2"></script>
 </body>
 </html>
