@@ -12,9 +12,9 @@ All300 prompts are hardcoded in `games/charades/prompts.mjs`: Animals40, Everyda
 
 ## Guess 10 words with 15 Clues
 
-[Play Guess 10 words with 15 Clues](https://denzeljohnson.github.io/mini-games/games/clues/) with a partner. Player 1 explains while Player 2 guesses in the first round; they switch roles each replay. Only the explainer looks at the screen. Say a one-word clue aloud, tap **Use a clue** to count it, and repeat until the guesser gets the word. Tap **Guessed it** to move on. At least one clue must be counted for each word. Guess all ten words using no more than fifteen clues total. The fifteenth clue can still lead to a correct guess; if any words remain afterward, the round ends.
+[Play Guess 10 words with 15 Clues](https://denzeljohnson.github.io/mini-games/games/clues/) with a partner. Player 1 explains while Player 2 guesses in the first round; they switch roles each replay. Only the explainer looks at the screen. Say a one-word clue aloud, tap **Use a clue** to count it, and repeat until the guesser gets the word. Tap **Guessed it** to move on. At least one clue must be counted for each word. Guess all ten words using no more than fifteen clues total. You can use **Skip word · free** twice per round. Each skip discards that word and reveals a unique replacement; it does not count as a guess or add a clue, but any clues already given for the skipped word remain spent. The fifteenth clue can still lead to a correct guess; if any words remain afterward, the round ends.
 
-The 2,000 unique prompt things are hardcoded in `games/clues/things.mjs`; each round randomly chooses ten without repeats. The app does not listen to speech or store scores. **End round** stops early; **Switch roles & play again** creates a fresh round. The answer list appears only in results.
+The 2,000 unique prompt things are hardcoded in `games/clues/things.mjs`; each round randomly reserves twelve without repeats, enough for ten guesses and two replacements. The app does not listen to speech or store scores. **End round** stops early; **Switch roles & play again** creates a fresh round. Presented answers appear only in results.
 
 ## Rank
 

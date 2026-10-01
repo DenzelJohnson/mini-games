@@ -7,7 +7,7 @@
   <title>Guess 10 words with 15 Clues · Mini Games</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=3">
-  <link rel="stylesheet" href="./clues.css?v=1">
+  <link rel="stylesheet" href="./clues.css?v=2">
 </head>
 <body>
   <main class="page clues-page">
@@ -21,7 +21,7 @@
     <section id="setup" class="panel" aria-labelledby="setup-title">
       <h2 id="setup-title">How to play</h2>
       <p>Only the explainer looks at the screen. For each answer, say a <strong>one-word clue</strong> aloud, then tap <strong>Use a clue</strong>. The guesser keeps guessing; give another one-word clue if needed. Tap <strong>Guessed it</strong> when they get the answer.</p>
-      <p>Get all 10 words without going over 15 clues total. Player 1 explains first; switch roles for the next round. No microphone is used.</p>
+      <p>Get all 10 words without going over 15 clues total. You have two free skips: each one draws a new word, and the skipped word will not return. A skip costs no clue, but clues already used on that word stay spent. Player 1 explains first; switch roles for the next round. No microphone is used.</p>
       <button id="start" class="primary" type="button">Start round</button>
     </section>
 
@@ -39,6 +39,7 @@
         <div><span class="hint">Word</span><span class="stat-number" id="word-progress">1 of 10</span></div>
         <div><span class="hint">Clues left</span><span class="stat-number" id="clues-left">15</span></div>
         <div><span class="hint">Used on this word</span><span class="stat-number" id="clues-used">0</span></div>
+        <div><span class="hint">Skips left</span><span class="stat-number" id="skips-left">2</span></div>
       </div>
       <div class="panel answer-card">
         <p class="eyebrow">Explainer’s eyes only</p>
@@ -47,6 +48,7 @@
         <div class="answer-actions">
           <button id="use-clue" class="secondary" type="button">Use a clue</button>
           <button id="guessed" class="primary" type="button" disabled>Guessed it</button>
+          <button id="skip-word" class="secondary skip-button" type="button">Skip word · free</button>
         </div>
       </div>
     </section>
@@ -56,11 +58,11 @@
       <h2 id="result-title"></h2>
       <p id="result-summary"></p>
       <button id="play-again" class="primary" type="button">Switch roles &amp; play again</button>
-      <details class="review"><summary>Review the 10 words</summary><ol id="review"></ol></details>
+      <details class="review"><summary>Review words</summary><ol id="review"></ol></details>
     </section>
     <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="panel">Enable JavaScript to play this game.</p></noscript>
   </main>
-  <script type="module" src="./app.mjs?v=1"></script>
+  <script type="module" src="./app.mjs?v=2"></script>
 </body>
 </html>

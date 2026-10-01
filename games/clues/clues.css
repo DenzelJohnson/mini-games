@@ -18,13 +18,14 @@ button:disabled { opacity: .5; cursor: default; }
 #start, #reveal, #play-again { margin-top: 1rem; }
 .round-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .round-top h2, .round-top p { margin: 0; }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin: 1.5rem 0; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; margin: 1.5rem 0; }
 .stats > div { display: flex; flex-direction: column; padding: .8rem; background: #eaf1eb; border-radius: .65rem; }
 .hint { color: #526660; font-size: .9rem; }
 .stat-number { font-size: 1.4rem; font-weight: 750; font-variant-numeric: tabular-nums; }
 .answer-card { text-align: center; }
 .answer { margin: 1.25rem 0; min-height: 2em; display: grid; place-items: center; font-size: clamp(2rem, 7vw, 3.3rem); line-height: 1.15; overflow-wrap: anywhere; }
 .answer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 1.5rem; }
+.skip-button { grid-column: 1 / -1; }
 .review { margin-top: 2rem; border-top: 1px solid #d8dfd7; padding-top: 1rem; }
 .review summary { cursor: pointer; min-height: 44px; font-weight: 650; }
 .review ol { padding-left: 1.5rem; }
@@ -32,7 +33,7 @@ button:disabled { opacity: .5; cursor: default; }
 @media (max-width: 36rem) {
   .clues-page { padding-top: 2rem; }
   .panel { padding: 1.25rem; }
-  .stats { gap: .4rem; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem; }
   .stats > div { padding: .55rem; }
   .stat-number { font-size: 1.1rem; }
   .answer-actions { grid-template-columns: 1fr; }

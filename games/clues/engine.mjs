@@ -1,26 +1,28 @@
 const WORD_COUNT = 10;
 const CLUE_LIMIT = 15;
+const SKIP_LIMIT = 2;
 
 function freezeRound(round) {
   return Object.freeze({...round, answers: Object.freeze([...round.answers]),
+    skipped: Object.freeze([...round.skipped]),
     history: Object.freeze(round.history.map(entry => Object.freeze({...entry})))});
 }
 
 export function createRound(things, random = Math.random, roundNumber = 1) {
-  if (!Array.isArray(things) || new Set(things).size < WORD_COUNT) {
-    throw new Error('At least ten different things are needed.');
+  if (!Array.isArray(things) || new Set(things).size < WORD_COUNT + SKIP_LIMIT) {
+    throw new Error('At least twelve different things are needed.');
   }
   if (!Number.isSafeInteger(roundNumber) || roundNumber < 1) throw new Error('Invalid round number.');
   const deck = [...new Set(things)];
-  for (let index = 0; index < WORD_COUNT; index++) {
+  for (let index = 0; index < WORD_COUNT + SKIP_LIMIT; index++) {
     const value = random();
     if (!Number.isFinite(value) || value < 0 || value >= 1) throw new Error('Invalid random value.');
     const pick = index + Math.floor(value * (deck.length - index));
     [deck[index], deck[pick]] = [deck[pick], deck[index]];
   }
   const explainer = roundNumber % 2 ? 1 : 2;
-  return freezeRound({phase: 'ready', reason: null, answers: deck.slice(0, WORD_COUNT),
-    index: 0, clues: 0, currentClues: 0, history: [], explainer, guesser: 3 - explainer,
+  return freezeRound({phase: 'ready', reason: null, answers: deck.slice(0, WORD_COUNT + SKIP_LIMIT),
+    index: 0, clues: 0, currentClues: 0, history: [], skipped: [], explainer, guesser: 3 - explainer,
     roundNumber});
 }
 
@@ -33,11 +35,17 @@ export function useClue(round) {
   return freezeRound({...round, clues: round.clues + 1, currentClues: round.currentClues + 1});
 }
 
+export function skipWord(round) {
+  if (round.phase !== 'playing' || round.skipped.length >= SKIP_LIMIT || round.clues === CLUE_LIMIT) return round;
+  return freezeRound({...round, index: round.index + 1, currentClues: 0,
+    skipped: [...round.skipped, round.answers[round.index]]});
+}
+
 export function markGuessed(round) {
   if (round.phase !== 'playing' || round.currentClues === 0) return round;
   const index = round.index + 1;
   const history = [...round.history, {answer: round.answers[round.index], clues: round.currentClues}];
-  const reason = index === WORD_COUNT ? 'won' : round.clues === CLUE_LIMIT ? 'budget' : null;
+  const reason = history.length === WORD_COUNT ? 'won' : round.clues === CLUE_LIMIT ? 'budget' : null;
   return freezeRound({...round, index, currentClues: 0, history,
     phase: reason ? 'finished' : 'playing', reason});
 }
