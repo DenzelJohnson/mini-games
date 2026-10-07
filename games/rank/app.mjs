@@ -1,7 +1,7 @@
-import { CATEGORIES } from './categories.mjs?v=6';
+import { CATEGORIES } from './categories.mjs?v=7';
 import { createRound, settleReveal, placeItem } from './engine.mjs';
 import { createBracket, chooseWinner } from './bracket.mjs?v=1';
-import { getEntryImage, createPortrait } from './portraits.mjs?v=5';
+import { getEntryImage, createPortrait } from './portraits.mjs?v=6';
 
 const byId = id => document.getElementById(id);
 const setup = byId('setup');
@@ -37,16 +37,25 @@ byId('mode-blind').checked = requestedMode !== 'bracket';
 
 function renderSetupMode() {
   const bracket = byId('mode-bracket').checked;
+  const selected = CATEGORIES.find(entry => entry.id === categorySelect.value) ?? CATEGORIES[0];
+  const sizes = [16, 32, 64].map(value => byId(`bracket-size-${value}`));
+  sizes.forEach((input, index) => { input.disabled = selected.items.length < [16, 32, 64][index]; });
+  if (!sizes.some(input => input.checked && !input.disabled)) {
+    sizes.forEach((input, index) => { input.checked = index === 0; });
+  }
   byId('blind-size').hidden = bracket;
   byId('blind-size').disabled = bracket;
   byId('bracket-size').hidden = !bracket;
   byId('bracket-size').disabled = !bracket;
   byId('start').textContent = bracket ? 'Start bracket' : 'Start ranking';
   byId('setup-hint').textContent = bracket
-    ? 'Random seeds. Head-to-head choices. Pick winners until one champion remains.'
+    ? (selected.items.length < 32
+      ? 'This category supports a Round of 16. Pick winners until one champion remains.'
+      : 'Random seeds. Head-to-head choices. Pick winners until one champion remains.')
     : '1 is your favorite. You won’t know what’s coming next, and filled ranks can’t be changed.';
 }
 byId('mode-options').addEventListener('change', renderSetupMode);
+categorySelect.addEventListener('change', renderSetupMode);
 renderSetupMode();
 
 function roundName(roundSize) {

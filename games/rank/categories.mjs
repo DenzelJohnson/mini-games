@@ -1,6 +1,7 @@
 import { ADDITIONAL_CATEGORIES } from './additional-categories.mjs?v=1';
 import { ANIME_TITLES } from './anime-titles.mjs?v=1';
 import { SUPERHEROES } from './superheroes.mjs?v=1';
+import { ONTARIO_UNIVERSITIES } from './ontario-universities.mjs?v=1';
 
 // Both modes share these pools. Preserve complete user lists even when they exceed100.
 export const CATEGORIES = [
@@ -204,4 +205,5 @@ export const CATEGORIES = [
     "Inception"
   ] },
   ...ADDITIONAL_CATEGORIES,
+  { id: 'ontario-universities', name: 'Ontario Universities', items: ONTARIO_UNIVERSITIES },
 ];

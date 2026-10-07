@@ -40,9 +40,9 @@
         <fieldset id="bracket-size" hidden disabled>
           <legend>Starting round</legend>
           <div class="size-options bracket-sizes">
-            <label class="size-option"><input type="radio" name="bracket-size" value="16" checked><span>Round of 16</span></label>
-            <label class="size-option"><input type="radio" name="bracket-size" value="32"><span>Round of 32</span></label>
-            <label class="size-option"><input type="radio" name="bracket-size" value="64"><span>Round of 64</span></label>
+            <label class="size-option"><input id="bracket-size-16" type="radio" name="bracket-size" value="16" checked><span>Round of 16</span></label>
+            <label class="size-option"><input id="bracket-size-32" type="radio" name="bracket-size" value="32"><span>Round of 32</span></label>
+            <label class="size-option"><input id="bracket-size-64" type="radio" name="bracket-size" value="64"><span>Round of 64</span></label>
           </div>
         </fieldset>
         <p class="hint" id="setup-hint">1 is your favorite. You won’t know what’s coming next, and filled ranks can’t be changed.</p>
@@ -107,6 +107,6 @@
     <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="panel">Enable JavaScript to play Rank. The other games are still available on the homepage.</p></noscript>
   </main>
-  <script type="module" src="./app.mjs?v=10"></script>
+  <script type="module" src="./app.mjs?v=11"></script>
 </body>
 </html>
