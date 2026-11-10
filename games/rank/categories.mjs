@@ -3,6 +3,7 @@ import { ANIME_TITLES } from './anime-titles.mjs?v=1';
 import { SUPERHEROES } from './superheroes.mjs?v=1';
 import { ONTARIO_UNIVERSITIES } from './ontario-universities.mjs?v=1';
 import { FEATURES_ON_A_GIRL } from './features-on-a-girl.mjs?v=1';
+import { POPULAR_MOVIES } from './popular-movies.mjs?v=1';
 
 // Both modes share these pools. Preserve complete user lists even when they exceed100.
 export const CATEGORIES = [
@@ -203,7 +204,8 @@ export const CATEGORIES = [
     "Turbo",
     "X2",
     "Wreck-It Ralph",
-    "Inception"
+    "Inception",
+    ...POPULAR_MOVIES
   ] },
   ...ADDITIONAL_CATEGORIES,
   { id: 'ontario-universities', name: 'Ontario Universities', items: ONTARIO_UNIVERSITIES },

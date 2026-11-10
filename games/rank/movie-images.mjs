@@ -1,3 +1,5 @@
+import { POPULAR_MOVIE_IMAGES } from './popular-movies.mjs?v=1';
+
 // Exact film posters and home-video artwork resolved at development time.
 // Copyrighted artwork remains with the credited creators/rightsholders. Wikipedia's
 // non-free-file rationale is not a transferable license. Identity links distinguish
@@ -650,6 +652,7 @@ export const MOVIE_IMAGES = {
     "source": "https://en.wikipedia.org/wiki/File:Inception_(2010)_theatrical_poster.jpg",
     "credit": "Warner Bros. Pictures / Legendary Pictures — copyrighted film artwork",
     "identitySource": "https://en.wikipedia.org/wiki/Inception"
-  }
+  },
+  ...POPULAR_MOVIE_IMAGES,
 };
 

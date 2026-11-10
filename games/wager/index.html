@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="stylesheet" href="../../styles.css?v=3">
   <link rel="stylesheet" href="../rank/rank.css?v=4">
-  <link rel="stylesheet" href="./wager.css?v=1">
+  <link rel="stylesheet" href="./wager.css?v=2">
 </head>
 <body>
   <main class="page rank-page wager-page">
@@ -26,6 +26,7 @@
         <label for="category">Category</label>
         <select id="category" name="category" required></select>
         <p class="hint">Bids start at $1. You must keep $1 for every roster spot you would still need after winning. If one roster fills first, the other player claims new entries for $1.</p>
+        <p id="movie-scoring-hint" class="hint" hidden></p>
         <button id="start" class="primary" type="submit" disabled>Start drafting</button>
         <p id="setup-error" class="error" role="alert"></p>
       </form>
@@ -62,6 +63,16 @@
         <p id="game-error" class="error" role="alert"></p>
       </section>
 
+      <section id="movie-result" class="panel movie-result" aria-labelledby="movie-result-title" hidden>
+        <h3 id="movie-result-title" tabindex="-1"></h3>
+        <p id="movie-result-totals" class="movie-result-totals"></p>
+        <p id="movie-result-method" class="hint"></p>
+        <details id="movie-source-details" class="bracket-details" hidden>
+          <summary>Rating sources and dates</summary>
+          <ul id="movie-sources" class="image-credits"></ul>
+        </details>
+      </section>
+
       <div class="wager-rosters" aria-label="Player rosters">
         <section class="panel" aria-labelledby="roster-title-1"><h3 id="roster-title-1">Player 1 roster</h3><ol id="roster-1" class="wager-roster"></ol></section>
         <section class="panel" aria-labelledby="roster-title-2"><h3 id="roster-title-2">Player 2 roster</h3><ol id="roster-2" class="wager-roster"></ol></section>
@@ -86,6 +97,6 @@
     <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="panel">Enable JavaScript to play Wager for a Roster.</p></noscript>
   </main>
-  <script type="module" src="./app.mjs?v=4"></script>
+  <script type="module" src="./app.mjs?v=5"></script>
 </body>
 </html>

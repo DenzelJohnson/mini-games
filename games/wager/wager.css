@@ -27,6 +27,11 @@
 .wager-roster .portrait-thumb { width: 2rem; height: 2.5rem; flex-basis: 2rem; }
 .wager-page .image-details { margin-top: 1rem; }
 .wager-page #result-actions { margin-bottom: 1rem; }
+.wager-page .movie-result { margin-bottom: 1rem; border-color: #245bba; background: #f3f7ff; }
+.wager-page .movie-result h3 { margin-bottom: .5rem; }
+.wager-page .movie-result-totals { font-weight: 600; }
+.wager-page .movie-result .bracket-details { margin-top: 1rem; }
+.wager-roster .movie-rating { margin-left: auto; flex-shrink: 0; color: #245bba; font-weight: 600; white-space: nowrap; }
 @media (max-width: 36rem) {
   .wager-page { width: calc(100% - 2rem); }
   .wager-balances, .wager-rosters { grid-template-columns: minmax(0, 1fr); }
