@@ -7,8 +7,9 @@ import { VIDEO_GAME_IMAGES } from './video-game-images.mjs?v=1';
 import { MOVIE_IMAGES } from './movie-images.mjs?v=1';
 import { SUPERHERO_IMAGES } from './superhero-images.mjs?v=1';
 import { ONTARIO_UNIVERSITY_IMAGES } from './ontario-universities.mjs?v=1';
+import { FEATURE_IMAGES } from './features-on-a-girl.mjs?v=1';
 
-export const IMAGE_CATEGORIES = { anime: ANIME_IMAGES, 'anime-titles': ANIME_TITLE_IMAGES, foods: FOOD_IMAGES, nba: NBA_IMAGES, music: MUSIC_IMAGES, 'video-games': VIDEO_GAME_IMAGES, movies: MOVIE_IMAGES, superheroes: SUPERHERO_IMAGES, 'ontario-universities': ONTARIO_UNIVERSITY_IMAGES };
+export const IMAGE_CATEGORIES = { anime: ANIME_IMAGES, 'anime-titles': ANIME_TITLE_IMAGES, foods: FOOD_IMAGES, nba: NBA_IMAGES, music: MUSIC_IMAGES, 'video-games': VIDEO_GAME_IMAGES, movies: MOVIE_IMAGES, superheroes: SUPERHERO_IMAGES, 'ontario-universities': ONTARIO_UNIVERSITY_IMAGES, 'features-on-a-girl': FEATURE_IMAGES };
 
 export function getEntryImage(categoryId, name) {
   if (!Object.hasOwn(IMAGE_CATEGORIES, categoryId)) return null;
